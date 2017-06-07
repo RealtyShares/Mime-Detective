@@ -503,22 +503,10 @@ namespace MimeDetective
 
 		internal static IReadOnlyList<byte> ReadHeaderFromByteArray(IReadOnlyList<byte> byteArray, ushort MaxHeaderSize)
 		{
-			/*
-			if (byteArray.Count < MaxHeaderSize)
-				throw new ArgumentException($"{nameof(byteArray)}:{byteArray.Count} Is smaller than {nameof(MaxHeaderSize)}:{MaxHeaderSize}", nameof(byteArray));
-
 			byte[] header = new byte[MaxHeaderSize];
-
-			//Array.Copy(byteArray, header, MaxHeaderSize);
-			for (int i = 0; i < MaxHeaderSize; i++)
-			{
-				header[i] = byteArray[i];
-			}
+            Array.Copy(byteArray.ToArray(), header, Math.Min(byteArray.Count, MaxHeaderSize));
 
 			return header;
-			*/
-
-			return byteArray;
 		}
 
 		#endregion Byte Header Get Methods
