@@ -258,11 +258,6 @@ namespace MimeDetective
 			if (fileHeader.Count <= 0)
 				return null;
 
-			// checking if it's binary (not really exact, but should do the job)
-			// shouldn't work with UTF-16 OR UTF-32 files
-			if (!fileHeader.Any(b => b == 0))
-				return TXT;
-
 			Stream fileData = stream;
 
 			try
@@ -309,8 +304,13 @@ namespace MimeDetective
 					fileData?.Dispose();
 			}
 
-			//no match return null
-			return null;
+            // checking if it's binary (not really exact, but should do the job)
+            // shouldn't work with UTF-16 OR UTF-32 files
+            if (!fileHeader.Any(b => b == 0))
+                return TXT;
+
+            //no match return null
+            return null;
 		}
 
 		/// <summary>
